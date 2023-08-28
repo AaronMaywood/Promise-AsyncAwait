@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOG API Sample</title>
+</head>
+<body>
+	<h1>Random Dog</h1>
+	<p id="dog"></p>
+
+    <script>
+		// https://dog.ceo/dog-api/ を使用して、ランダムな犬画像のURLを取得する
+		async function getDogURL(){
+			const responce = await fetch('https://dog.ceo/api/breeds/image/random');
+			const json = await responce.json()
+			// console.log(json);	// json の中にどんな情報が入っているかを確認する方法
+			return json.message;	// "https://images.dog.ceo/breeds/shihtzu/n02086240_5696.jpg" のような犬画像のURL
+		}
+
+		// 画面に犬画像をセットする
+		async function setDogImage(){
+			const url = await getDogURL();
+			// img要素を作って
+			const img = document.createElement('img');
+			img.src = url;
+			// p要素の中に貼り付ける
+			const p = document.querySelector('#dog');
+			p.appendChild(img);
+		}
+
+		setDogImage();
+    </script>
+</body>
+</html>
